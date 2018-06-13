@@ -6,7 +6,11 @@
 
 case node['os']
 when 'linux'
-  include_recipe 'os-hardening::default'
+  if node['platform_family'] == 'rhel'
+    include_recipe 'cis-rhel::default'
+  else
+    include_recipe 'os-hardening::default'
+  end
 when 'windows'
   include_recipe 'windows-hardening::default'
 else
